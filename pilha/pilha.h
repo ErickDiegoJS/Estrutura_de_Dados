@@ -13,3 +13,4 @@ int Pop(t_pilha *p, int *removido);
 int PilhaVazia(t_pilha *p);
 int PilhaCheia(t_pilha *p);
 void ExibePliha(t_pilha *p);
+void InverterPilha(t_pilha *p);
