@@ -3,13 +3,17 @@
 void ConstroiPilha(int capacidade, t_pilha *p){
     p->dados =  (int *) malloc(capacidade * sizeof(t_pilha));
     p->topo = 0;
-    p ->capacidade = capacidade;
+    p ->capaciade = capacidade;
+}
+void DestruirPilha(t_pilha *p){
+    free(p->dados);
+    free(p);
 }
 int PilhaVazia(t_pilha *p){
     return !p->topo;//retorna o resultado da operacao, ou seja, verdadeiroou falso, 1 ou 0
 }
 int PilhaCheia(t_pilha *p){
-    return p->capacidade == p->topo;
+    return p->capaciade == p->topo;
 }
 int Push(int i, t_pilha *p){
     if(!PilhaCheia(p)){
@@ -38,30 +42,18 @@ void ExibePliha(t_pilha *p){
     }
 }
 
-void InverterPilha(t_pilha *p){
+void InverterPilha(t_pilha *p) {
     t_pilha *invertida;
-    invertida = (t_pilha *) malloc(sizeof(t_pilha));
-    ConstroiPilha(p->capacidade, invertida);
+    invertida = (t_pilha *)malloc(sizeof(t_pilha));
+    ConstroiPilha(p->capaciade, invertida);
     int aux;
-    while(Pop(p, &aux)){
+    while (Pop(p, &aux)) {
         Push(aux, invertida);
     }
+    free(p->dados); // Libera a memória antiga antes de substituir
     p->dados = invertida->dados;
     p->topo = invertida->topo;
-
+    p->capaciade = invertida->capaciade;
+    free(invertida); // Libera a estrutura auxiliar
 }
 
-void ConverterBaseBI(int num){
-    t pilha *binaria;
-    binaria = (t_pilha *) malloc(sizeof(t_pilha));
-    ConstroiPilha(4, binaria);
-    for(int i=0; i<=binaria->topo; i++){
-        binaria = %(num/2);
-    }
-    InverterPilha(&binaria);
-    
-}
-void DestruirPilha(t_pilha *p){
-    free(p->dados);
-    free(p);
-}
