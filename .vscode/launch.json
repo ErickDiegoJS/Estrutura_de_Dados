@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Erick Diego/Documents/EDD/pilha",
-      "program": "c:/Users/Erick Diego/Documents/EDD/pilha/build/Debug/outDebug",
+      "cwd": "c:/Users/Erick Diego/Documents/EDD",
+      "program": "c:/Users/Erick Diego/Documents/EDD/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
