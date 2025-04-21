@@ -1,10 +1,14 @@
+// ******************************************************
+// * Nome: Erick Diego de Jesus Soares                  *
+// * ADS Tarde 3 semsestre                              *
+// * Estrutura de dados                                 *
+// ******************************************************
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #define TAMANHO_PLACA 8
 #define CAPACIDADE_ESTACIONAMENTO 10
 
-// Declaração das structs
 typedef struct{
     char placa[TAMANHO_PLACA];
 } T_carro;
@@ -20,17 +24,50 @@ typedef struct {
     int vagas;
 }T_estacionamento;
 
-// Funções "construtoras"
+void ConstroiEstacionamento(int capacidade, T_estacionamento *estacionamento);
+void ConstroiCarro(char *placa, T_carro *carro);
+void ConstroiCarroEstacionado(T_carro_estacionado *carroEstacionado,T_carro *carro);
+int EstacionamentoCheio(T_estacionamento *estacionamento);
+int EstacionamentoVazio(T_estacionamento *estacionamento);
+void ExibirEstacionamento(T_estacionamento *estacionamento);
+void LiberarEstacionamento(T_estacionamento *estacionamento);
+void LiberarCarro(int indice, T_estacionamento *estacionamento);
+void Push(T_estacionamento *estacionamento, T_carro_estacionado *carro);
+void Pop(T_estacionamento *estacionamento, T_carro *carro);
+
+int main(){
+    T_estacionamento estacionamento;
+    ConstroiEstacionamento(CAPACIDADE_ESTACIONAMENTO, &estacionamento);
+    int entrada; 
+    char placa[TAMANHO_PLACA];
+    ExibirEstacionamento(&estacionamento);
+    while(scanf("%1d %7s", &entrada, &placa) != EOF){
+        T_carro carro;
+        ConstroiCarro(placa, &carro);
+        if(entrada == 0){
+            T_carro_estacionado carroEstacionado;
+            ConstroiCarroEstacionado(&carroEstacionado, &carro);
+            Push(&estacionamento, &carroEstacionado);
+            ExibirEstacionamento(&estacionamento);
+        }
+        else if(entrada == 1){
+            Pop(&estacionamento, &carro);
+            ExibirEstacionamento(&estacionamento);
+        }
+        else{
+            printf("\nEntrada invalida!");
+        }
+    }
+    LiberarEstacionamento(&estacionamento);
+    return 0;
+}
+
 void ConstroiEstacionamento(int capacidade, T_estacionamento *estacionamento){
     estacionamento->carros = (T_carro_estacionado *) malloc(capacidade * (sizeof(T_carro_estacionado)));
-    if (estacionamento->carros == NULL) {
-        printf("Erro ao alocar memoria para o estacionamento!\n");
-        exit(1);
-    }
     estacionamento->capacidade = capacidade;
     estacionamento->vagas = capacidade;
     for (int i = 0; i < capacidade; i++) {
-        estacionamento->carros[i].carro.placa[0] = '\0'; // Placa vazia
+        estacionamento->carros[i].carro.placa[0] = '\0';
         estacionamento->carros[i].manobras = 0;
     }
 }
@@ -38,13 +75,12 @@ void ConstroiEstacionamento(int capacidade, T_estacionamento *estacionamento){
 void ConstroiCarro(char *placa, T_carro *carro){
     strcpy(carro->placa, placa);
 }
-// strlen(string)
+
 void ConstroiCarroEstacionado(T_carro_estacionado *carroEstacionado,T_carro *carro){
     carroEstacionado->carro = *carro; 
     carroEstacionado->manobras = 0;
 }
 
-//Verificação de vagas
 int EstacionamentoCheio(T_estacionamento *estacionamento){
     return !estacionamento->vagas;
 }
@@ -53,7 +89,6 @@ int EstacionamentoVazio(T_estacionamento *estacionamento){
     return estacionamento->vagas == estacionamento->capacidade;
 }
 
-//exibição
 void ExibirEstacionamento(T_estacionamento *estacionamento){
     if(!EstacionamentoVazio(estacionamento)){
         printf("\n********* Estacionamento *********\n");
@@ -68,7 +103,6 @@ void ExibirEstacionamento(T_estacionamento *estacionamento){
     }
 }
 
-//"limpar" memoria
 void LiberarEstacionamento(T_estacionamento *estacionamento){
     free(estacionamento->carros);
 }
@@ -78,7 +112,6 @@ void LiberarCarro(int indice, T_estacionamento *estacionamento){
     estacionamento->carros[indice].carro.placa[0] = '\0';
 }
 
-//empilhar e desempilhar carros 
 void Push(T_estacionamento *estacionamento, T_carro_estacionado *carro){
     if(!EstacionamentoCheio(estacionamento)){
         estacionamento->carros[estacionamento->capacidade - estacionamento->vagas--] = *carro;
@@ -87,7 +120,8 @@ void Push(T_estacionamento *estacionamento, T_carro_estacionado *carro){
         printf("\nEstacionamento cheio! Nao foi possivel estacionar.");
     }
 }
-void Pop(T_estacionamento *estacionamento, T_carro *carro) {
+
+void Pop(T_estacionamento *estacionamento, T_carro *carro){
     if (!EstacionamentoVazio(estacionamento)) {
         int indice = 0;
 
@@ -124,28 +158,4 @@ void Pop(T_estacionamento *estacionamento, T_carro *carro) {
     } else {
         printf("\nEstacionamento vazio!\n");
     }
-}
-
-int main(){
-    T_estacionamento estacionamento;
-    ConstroiEstacionamento(CAPACIDADE_ESTACIONAMENTO, &estacionamento);
-    int entrada; 
-    char placa[TAMANHO_PLACA];
-    ExibirEstacionamento(&estacionamento);
-    while(scanf("%1d %7s", &entrada, &placa) != EOF){
-        T_carro carro;
-        ConstroiCarro(placa, &carro);
-        if(entrada == 0){
-            T_carro_estacionado carroEstacionado;
-            ConstroiCarroEstacionado(&carroEstacionado, &carro);
-            Push(&estacionamento, &carroEstacionado);
-            ExibirEstacionamento(&estacionamento);
-        }
-        else if(entrada == 1){
-            Pop(&estacionamento, &carro);
-            ExibirEstacionamento(&estacionamento);
-        }
-    }
-    LiberarEstacionamento(&estacionamento);
-    return 0;
 }
