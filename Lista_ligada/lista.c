@@ -40,12 +40,6 @@ void ExibirLista(t_lista * lista){
         printf("Lista vazia!");
     }
     else{
-        // t_no * runner = lista->primeiro;
-        // while(runner != NULL){
-        //     printf("[%d] -> ", runner->info);
-        //     runner = runner->prox;
-        // }
-
         for(t_no * runner = lista->primeiro; runner != NULL; runner = runner->prox){
             printf("[%d] -> ", runner->info);
         }
@@ -88,4 +82,73 @@ int RemoveFim(t_lista * lista){
         lista->ultimo = runner;
     }
     return temp;
+}
+
+// atividade funções de lista
+int QtdElementos(t_lista * lista){
+    int cont = 0;
+    if(!ListaVazia(lista)){
+        for(t_no * runner = lista->primeiro; runner != NULL; runner = runner->prox){
+            cont++;
+        }
+    }
+    return cont;
+}
+
+int MaiorElemento(t_lista * lista){
+    if(ListaVazia(lista)){
+        return -1;
+    }
+    else if(lista->primeiro == lista->ultimo){
+        return lista->primeiro->info;
+    }
+    else{
+        int maior = 0;
+        for(t_no * runner = lista->primeiro; runner != NULL; runner = runner->prox){
+            if (maior < runner->info){
+                maior = runner->info;
+            }
+        }
+        return maior;
+    }
+}
+
+int EncontrarElemento(t_lista * lista, int elemento){
+    if(ListaVazia(lista)){
+        return -1;
+    }
+    int cont =0;
+    for(t_no * runner = lista->primeiro; runner != NULL; runner = runner->prox){
+        cont++;
+        if(elemento == runner->info){
+            return cont;
+        }
+    }
+    return 0;
+}
+
+int ContarElemento(t_lista * lista, int elemento){
+    if(ListaVazia(lista)){
+        return 0;
+    }
+    int cont = 0;
+    for(t_no * runner = lista->primeiro; runner != NULL; runner = runner->prox){
+        if(runner->info == elemento){
+            cont++;
+        }
+    }
+    return cont;
+}
+
+t_lista PosicoesElemento(t_lista * lista, int elemento){
+    t_lista novaLista;
+    ConstroiLista(&novaLista);
+    int cont = 0;
+    for(t_no * runner = lista->primeiro; runner != NULL; runner = runner->prox){
+        cont++;
+        if(runner->info == elemento){
+            InsereFim(cont, &novaLista);
+        }
+    }
+    return novaLista;
 }
