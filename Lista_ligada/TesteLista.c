@@ -30,15 +30,15 @@ int main(){
     //     ExibirLista(&lista);
     // }
 
-    printf("\nA qtd de elementos no array e %d", QtdElementos(&lista));
+    printf("\nA qtd de elementos na lista e %d", QtdElementos(&lista));
 
     printf("\nO maior elemento da lista e %d", MaiorElemento(&lista));
 
     int ele = 76;
-    printf("\n O elemento %d esta na %d posicao da lista", ele, EncontrarElemento(&lista, ele));
+    printf("\nO elemento %d esta na posicao %d da lista", ele, EncontrarElemento(&lista, ele));
 
     ele = 35;
-    printf("\n o elemento %d aparece %dx na lista", ele, ContarElemento(&lista, ele));
+    printf("\nO elemento %d aparece %dx na lista", ele, ContarElemento(&lista, ele));
 
     t_lista listaElementos;
     ConstroiLista(&listaElementos);
