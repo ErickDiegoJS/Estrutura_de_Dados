@@ -89,7 +89,6 @@ int Busca(int x, t_pilha *v) {
     return -1;  
 }
 
-
 int main(){
     t_pilha pilha;
     int capacidade = 10;

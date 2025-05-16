@@ -1,50 +1,68 @@
 #include "lista.h"
 
-int main(){
-    t_lista lista;
-    ConstroiLista(&lista);
-    // for(int i =1; i<=10; i++){
-    //     InsereInicio(i, &lista);
-    // }
-
-    int entrada;
-    while(scanf("%d", &entrada) != EOF){
-        InsereFim(entrada, &lista);
+void RemoverElementos(int ele, t_lista * lista){
+    if(ele > QtdElementos(lista)){
+        printf("Ha menos elementos que o necessario\n");
+        return;
     }
-    
-    ExibirLista(&lista);
+    for(int i = 0; i < ele; i++){
+        RemoveFim(lista);
+    }
+}
 
-    // while(!ListaVazia(&lista)){
-    //     printf("%d saiu do inicio\n", RemoveInicio(&lista));
-    //     ExibirLista(&lista);
-    // }
+t_lista RetornaPares(t_lista *lista) {
+    t_lista pares;
+    ConstroiLista(&pares);
+    for (t_no *runner = lista->primeiro; runner != NULL; runner = runner->prox) {
+        if (runner->info % 2 == 0) {
+            InsereFim(runner->info, &pares);
+        }
+    }
+    return pares;
+}
 
-    // for(int i=1;i<=10 ; i++){
-    //     InsereFim(i, &lista);
-    // }
+t_lista RetornaImpares(t_lista *lista) {
+    t_lista impares;
+    ConstroiLista(&impares);
+    for (t_no *runner = lista->primeiro; runner != NULL; runner = runner->prox) {
+        if (runner->info % 2 != 0) {
+            InsereFim(runner->info, &impares);
+        }
+    }
+    return impares;
+}
 
-    // ExibirLista(&lista);
+int main() {
+    t_lista l1, pares, impares;
+    int valor;
 
-    // while(!ListaVazia(&lista)){
-    //     printf("%d saiu do final\n", RemoveFim(&lista));
-    //     ExibirLista(&lista);
-    // }
+    ConstroiLista(&l1);
 
-    printf("\nA qtd de elementos na lista e %d", QtdElementos(&lista));
+    // Leitura da lista 1 até EOF
+    while (scanf("%d", &valor) != EOF) {
+        InsereFim(valor, &l1);
+    }
 
-    printf("\nO maior elemento da lista e %d", MaiorElemento(&lista));
+    // Testa RemoverElementos: remove 2 elementos do fim de l1
+    RemoverElementos(2, &l1);
 
-    int ele = 76;
-    printf("\nO elemento %d esta na posicao %d da lista", ele, EncontrarElemento(&lista, ele));
+    // Testa RetornaPares e RetornaImpares
+    pares = RetornaPares(&l1);
+    impares = RetornaImpares(&l1);
 
-    ele = 35;
-    printf("\nO elemento %d aparece %dx na lista", ele, ContarElemento(&lista, ele));
+    printf("Lista original (após remoção): ");
+    ExibirLista(&l1);
 
-    t_lista listaElementos;
-    ConstroiLista(&listaElementos);
-    listaElementos = PosicoesElemento(&lista, ele);
-    printf("\nAs posicoes em que %d aparece sao: ", ele);
-    ExibirLista(&listaElementos);
+    printf("Pares: ");
+    ExibirLista(&pares);
+
+    printf("Impares: ");
+    ExibirLista(&impares);
+
+    // Libera memória
+    while (!ListaVazia(&l1)) RemoveFim(&l1);
+    while (!ListaVazia(&pares)) RemoveFim(&pares);
+    while (!ListaVazia(&impares)) RemoveFim(&impares);
 
     return 0;
 }
