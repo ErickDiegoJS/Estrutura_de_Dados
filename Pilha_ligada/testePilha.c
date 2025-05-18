@@ -54,7 +54,7 @@ int main(){
     TransferirPilha(&pilha, &aux);
     printf("P1: \n");
     ExibirPilha(&pilha);
-    printf("\nP2: \n");
+    printf("\ncP2: \n");
     ExibirPilha(&aux);
     // Push(10, &pilha);
     // Push(20, &pilha);
