@@ -1,3 +1,4 @@
+// Tipos de Triângulos
 #include <stdio.h>
 
 void ordenarDecrescente(float *a, float *b, float *c) {

@@ -1,66 +1,63 @@
+// Parafusos e Porcas
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct{
+typedef struct {
     int inicio, fim;
     int id;
-}Estante;
+} Estante;
 
-void bubble_sort (int v[], int n) {
-    for (int i=1; i < n; i++)
-        for (int j=0; j < n-i; j++)
-            if (v[j] > v[j+1]) {
+void bubble_sort(int v[], int n) {
+    for (int i = 0; i < n - 1; i++)
+        for (int j = 0; j < n - i - 1; j++)
+            if (v[j] > v[j + 1]) {
                 int aux = v[j];
-                v[j] = v[j+1];
-                v[j+1] = aux;
+                v[j] = v[j + 1];
+                v[j + 1] = aux;
             }
 }
 
-void InserirIntervalo(Estante *caixa, int *enumeracao){
-    fgets(caixa[*enumeracao]->inicio, sizeof(caixa->inicio), stdin);
-    fgets(caixa[*enumeracao]->fim, sizeof(caixa->fim), stdin);
-    *enumeracao++;
-    caixa->id = *enumeracao;
-}
-
-void preenche_vetor(Estante *caixa, int *enumeracao, int vetor[], int *qtd) {
-    vetor[*qtd];
-    for(int i = 0; i < enumeracao; i++){
-        for(int j = caixa[j]->inicio; j <= caixa[j]->fim; j++){
-            vetor[i] = j;
-        }        
+void InserirIntervalo(Estante *caixa, int qtd) {
+    for (int i = 0; i < qtd; i++) {
+        scanf("%d %d", &caixa[i].inicio, &caixa[i].fim);
+        caixa[i].id = i + 1;
     }
-    bubble_sort(vetor, *qtd);
 }
 
-void BuscaCaixa(Estante *caixa, int *enumeracao){
+void BuscaCaixa(Estante *caixa, int qtd) {
     int num;
-    int qtd = 0;
-    int vetor[]
     scanf("%d", &num);
-    for(int i = 0; i < enumeracao; i++){
-        for(int j = caixa[j]->inicio; j <= caixa[j]->fim; j++){
-            qtd++;
+    
+    int menor = -1, maior = -1;
+    
+    for (int i = 0; i < qtd; i++) {
+        if (num >= caixa[i].inicio && num <= caixa[i].fim) {
+            if (menor == -1) menor = caixa[i].id;
+            maior = caixa[i].id;
         }
     }
-    for(int i = 0; i<qtd; i++){
-        preenche_vetor(int vetor[], int qtd, int );
-    }
-    printf("%d found from %d to %d\n", num, );
-    printf("%d not found\n", num);
+
+    if (menor == -1)
+        printf("%d not found\n", num);
+    else
+        printf("%d found from %d to %d\n", num, menor, maior);
 }
 
-int main(){
+int main() {
     int qtdcaixas;
-    int enumeracao = 1;
     
-    while(!EOF){
-        scanf("%d", &qtdcaixas);
-        Estante caixa[(int *) malloc(qtdcaixas * sizeof)];
-        InserirIntervalo(caixa, &enumeracao);
-        BuscaCaixa(caixa, &enumeracao);
+    while (scanf("%d", &qtdcaixas) != EOF) {
+        Estante *caixa = (Estante *)malloc(qtdcaixas * sizeof(Estante));
+        if (caixa == NULL) {
+            printf("Erro de memória\n");
+            return 1;
+        }
+
+        InserirIntervalo(caixa, qtdcaixas);
+        BuscaCaixa(caixa, qtdcaixas);
+
+        free(caixa);
     }
-    
-    
+
     return 0;
 }

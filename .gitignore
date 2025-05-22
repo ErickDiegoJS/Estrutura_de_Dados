@@ -4,3 +4,6 @@
 .vscode/c__cpp_properties.json
 *.exe
 build/
+*.txt
+
+beecrowd/beecrowd-1130.c
