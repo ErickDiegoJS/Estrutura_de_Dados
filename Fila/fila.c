@@ -89,3 +89,42 @@ void ExibirVetor(t_fila * fila){
         }
     }
 }
+
+void ParesImpares(t_fila *orig, t_fila *pares, t_fila *impares) {
+    int aux;
+    while (Desenfileirar(orig, &aux)) {
+        if (aux % 2 == 0) {
+            Enfileirar(pares, aux);
+        } else {
+            Enfileirar(impares, aux);
+        }
+    }
+}
+
+void TransferirFila(t_fila *f1, t_fila *f2) {
+    int aux;
+    if (f1->quantidade <= f2->quantidade) {
+        int qtd = f1->quantidade;
+        for (int i = 0; i < qtd; i++) {
+            if (Desenfileirar(f1, &aux)) {
+                Enfileirar(f2, aux);
+            }
+        }
+    } else {
+        int qtd = f2->quantidade;
+        for (int i = 0; i < qtd; i++) {
+            if (Desenfileirar(f2, &aux)) {
+                Enfileirar(f1, aux);
+            }
+        }
+    }
+}
+
+void DestruirFila(t_fila *fila) {
+    if (fila != NULL) {
+        if (fila->dados != NULL) {
+            free(fila->dados);
+        }
+        free(fila);
+    }
+}

@@ -5,5 +5,4 @@
 *.exe
 build/
 *.txt
-
 beecrowd/beecrowd-1130.c
